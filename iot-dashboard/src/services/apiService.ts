@@ -34,3 +34,4 @@ export function update<T>(resource: string, id: string | number, data: Partial<T
 export function deleteById(resource: string, id: string | number, token?: string) {
     return apiRequest<void>(`${resource.replace(/^\/+/, '')}?id=eq.${id}`, 'DELETE', undefined, token);
 }
+``

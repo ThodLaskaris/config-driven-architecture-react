@@ -1,12 +1,13 @@
 import React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import Paper from "@mui/material/Paper";
-import { initialPageSize, TablesProps } from '../config/ITablesConfig';
+import { initialPageSize} from '../config/TableConfig';
+import { Table, TableProps } from '../types/table';
 import { paperDarkSx, dataGridDarkSx } from "../config/TablesStyle";
-import { handleDelete, handleEdit } from '../config/TablesActions';
+import { handleDelete, handleEdit } from '../config/TableActions';
 import ReusableIonButton from "./IonButton";
 
-const Tables: React.FC<TablesProps> = ({
+const Tables: React.FC<TableProps> = ({
   columnsDef,
   rows,
   pageSizeOptions,

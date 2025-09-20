@@ -2,7 +2,7 @@ import React from 'react';
 import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonText, IonTitle, IonToolbar } from '@ionic/react';
 import { useParams } from 'react-router';
 import Tables from '../components/Tables';
-import { getTableConfig } from '../config/ITablesConfig';
+import { getTableConfig } from '../config/TableConfig';
 import './Page.css';
 import { useApi } from '../hooks/useApi';
 
