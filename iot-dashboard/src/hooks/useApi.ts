@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { apiRequest } from '../services/apiHelpers';
 
 export function useApi<T>(
@@ -12,9 +12,7 @@ export function useApi<T>(
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-
-
-  useEffect(() => {
+  const fetchData = useCallback(() => {
     setLoading(true);
     setError(null);
 
@@ -22,7 +20,12 @@ export function useApi<T>(
       .then(setResult)
       .catch(error => setError(error.message))
       .finally(() => setLoading(false));
-  }, dependencies.length ? dependencies : [endpoint, method, data, token]);
 
-  return { result, loading, error };
+  }, [endpoint, method, data, token]);
+
+  useEffect(() => {
+    fetchData();
+  }, dependencies.length ? dependencies : [fetchData]);
+
+  return { result, loading, error, refetch: fetchData };
 }

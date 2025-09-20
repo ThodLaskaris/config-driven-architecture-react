@@ -10,7 +10,7 @@ const Page: React.FC = () => {
   const { name } = useParams<{ name: string }>();
   const config = getTableConfig(name ?? '');
   const endpoint = config.endpoint;
-  const { result: rows, loading, error } = useApi<any[]>(endpoint, 'GET', undefined, undefined, [endpoint]);
+  const { result: rows, loading, error, refetch } = useApi<any[]>(endpoint, 'GET', undefined, undefined, [endpoint]);
 
 
   return (
@@ -36,9 +36,12 @@ const Page: React.FC = () => {
         </IonHeader>
         {loading && <div>Loading..</div>}
         {error && <div style={{ color: 'red' }}>{`BR-${error}`}</div>}
-        <Tables {...config}
+        <Tables
+          {...config}
           rows={rows || []}
-          resource={config.resource} />
+          resource={config.resource}
+          onDelete={() => refetch()} // ή απλά onDelete={refetch}
+        />
       </IonContent>
     </IonPage>
   );

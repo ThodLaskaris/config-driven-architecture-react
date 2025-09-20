@@ -13,6 +13,7 @@ export interface ITables {
 }
 export interface TablesProps extends ITables {
   rows: any[];
+  onDelete?: () => void;
 }
 
 export const commandsTableConfig: ITables = {

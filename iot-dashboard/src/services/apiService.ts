@@ -19,9 +19,6 @@ const API_BASE_URL = process.env.REACT_APP_API_BASE_URL
 //     return apiRequest<void>(`${API_BASE_URL}/${resource}/${id}`, 'DELETE', undefined, token);
 // }
 
-
-
-
 export function getAll<T>(resource: string, token?: string) {
     return apiRequest<T[]>(`${resource.replace(/^\/+/, '')}`, 'GET', undefined, token);
 }
