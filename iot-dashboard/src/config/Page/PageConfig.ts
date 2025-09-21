@@ -1,8 +1,4 @@
-export interface AppPage {
-  title: string;
-  url?: string;
-  children?: AppPage[];
-}
+import { AppPage } from "../../types/Page"
 
 export const appPages: AppPage[] = [
   {
@@ -34,9 +30,13 @@ export const appPages: AppPage[] = [
         url: '/tables/Correlations'
       },
       {
+        title: 'Last Seen Devices',
+        url: '/tables/LastSeen'
+      },
+      {
         title: 'New Device',
         url: '/tables/CreateDevice'
-      }
+      },
     ]
   },
   {

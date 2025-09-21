@@ -1,11 +1,11 @@
 import React from "react";
 import { IonButton } from "@ionic/react";
-import { ReusableIonButtonProps } from "../config/IButton";
+import { ReusableIonButtonProps } from '../types/Button';
 
 const ReusableIonButton: React.FC<ReusableIonButtonProps> = ({
   onClick,
-  color = "primary",
-  expand, // default undefined, ή βάλε expand = "block" αν το θες πάντα block
+  color = "default",
+  expand,
   disabled = false,
   className,
   children,

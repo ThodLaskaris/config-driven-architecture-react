@@ -1,21 +1,20 @@
 export interface Command {
-  ID: number;
-  Sent: string;
-  Completed: boolean;
-  CommandCode: string;
-  CommandParams: string;
-  DeviceId: string;
-  LoraWanPort: number;
-  ExecutedAt: string;
-  CreatedAt: string;
-  ValidUntil: string;
-  Client: string;
+  id?: string; 
+  createdAt?: string; 
+  sent: boolean;
+  completed: boolean;
+  commandCode: string;
+  commandParams: string[]; 
+  deviceId?: string;
+  deviceIdentifier?: string;
+  loraWanPort?: number;
 }
-export interface CommandsOutcome {
-  ID: number;
-  Name: string;
-  Type: string;
-  Status: string;
-  'Last Seen': string;
-  Location: string;
+
+export interface CommandOutcome {
+  id: string; 
+  commandId: string; 
+  success: boolean;
+  message?: string;
+  data?: any;
+  receivedAt?: string; 
 }

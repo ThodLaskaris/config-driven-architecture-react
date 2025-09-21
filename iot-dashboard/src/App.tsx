@@ -34,7 +34,9 @@ const App: React.FC = () => {
           <Menu />
           <IonRouterOutlet id="main">
             <Route path="/" exact={true}>
-              <Redirect to="/tables/Commands" />
+              <Redirect to="/stats" /> {/* Κάνε το dashboard αρχική σελίδα */}
+            </Route>
+            <Route path="/stats" exact={true}>
             </Route>
             <Route path="/tables/:name" exact={true}>
               <Page />

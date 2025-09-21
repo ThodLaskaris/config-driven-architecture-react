@@ -1,7 +1,7 @@
 import { SxProps, Theme } from "@mui/material/styles";
 
 export const paperDarkSx: SxProps<Theme> = {
-  height: "calc(100vh - 64px)",
+  height: "calc(100vh - 100px)",
   width: "100%",
   boxShadow: "none",
   backgroundColor: "#000",

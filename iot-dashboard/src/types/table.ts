@@ -11,4 +11,5 @@ export interface Table {
 export interface TableProps extends Table {
   rows: any[];
   onDelete?: () => void;
+  refetch?: () => void;
 }

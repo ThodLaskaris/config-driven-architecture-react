@@ -1,9 +1,29 @@
 import { IonContent, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle, IonNote } from '@ionic/react';
 import { useLocation } from 'react-router-dom';
 import './Menu.css';
-import { appPages } from '../config/IPagesConfig';
+import { appPages } from '../config/Page/PageConfig';
 import React, { useState } from 'react';
 import { menuController } from '@ionic/core';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 const Menu: React.FC = () => {
   const [openParent, setOpenParent] = useState<string | null>(null);

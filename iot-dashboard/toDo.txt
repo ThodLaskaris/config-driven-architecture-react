@@ -1,0 +1,90 @@
+Συνοπτικά, τι να αλλάξεις:
+Base URL & endpoints στα configs/services
+Query params για pagination/filters
+Authorization header σε όλα τα requests
+Response parsing (π.χ. response.items αντί για response)
+Naming στα IDs/fields αν αλλάζει το casing
+Προσθήκη/προσαρμογή services για custom endpoints
+
+
+Πολύ καλή ιδέα να βάλεις Charts στην κεντρική σελίδα του dashboard σου!
+Τα endpoints του StatsController είναι ιδανικά για στατιστικά και γραφήματα.
+
+Προτάσεις για Charts με βάση τα endpoints:
+1. Συνολικός αριθμός συσκευών
+
+Endpoint: GET /api/v1/stats
+Chart: Ένα μεγάλο αριθμητικό "card" (π.χ. Total Devices: 1234)
+2. Συσκευές ανά τύπο
+Endpoint: GET /api/v1/stats/devices/type
+Chart: Pie chart ή Bar chart
+Labels: Τύποι συσκευών
+Values: Πλήθος ανά τύπο
+3. Συσκευές ανά πελάτη
+Endpoint: GET /api/v1/stats/devices/client
+Chart: Bar chart ή Horizontal bar chart
+Labels: Πελάτες
+Values: Πλήθος συσκευών ανά πελάτη
+4. Συσκευές ανά πελάτη και τύπο
+Endpoint: GET /api/v1/stats/devices/client/type
+Chart: Stacked bar chart
+X: Πελάτες
+Stack: Τύποι συσκευών
+Y: Πλήθος
+5. Ανενεργές συσκευές
+Endpoint: GET /api/v1/stats/devices/inactive
+Chart: Card ή Donut chart (Active vs Inactive)
+6. Μέσος όρος μηνυμάτων ανά τύπο/ημέρα
+Endpoint: GET /api/v1/stats/devices/average/messages/type/day
+Chart: Line chart ή Bar chart
+X: Ημέρες
+Y: Μέσος όρος μηνυμάτων
+Series: Τύποι συσκευών
+Συμπέρασμα
+Για αρχή:
+Ένα card με το σύνολο συσκευών
+Ένα pie/bar chart με συσκευές ανά τύπο
+Ένα bar chart με συσκευές ανά πελάτη
+Ένα stacked bar chart για πελάτη/τύπο
+Ένα card ή donut για ανενεργές συσκευές
+Ένα line/bar chart για μέσο όρο μηνυμάτων
+Όλα τα παραπάνω endpoints είναι κατάλληλα για Chart.js!
+Αν θες παράδειγμα κώδικα για κάποιο συγκεκριμένο chart, πες μου ποιο!
+
+
+
+
+mapping
+// Αν το response είναι από .NET:
+const command: Command = {
+  id: response.Id,
+  createdAt: response.CreatedAt,
+  sent: response.Sent,
+  completed: response.Completed,
+  commandCode: response.CommandCode,
+  commandParams: response.CommandParams,
+  deviceId: response.DeviceId,
+  deviceIdentifier: response.DeviceIdentifier,
+  loraWanPort: response.LoraWanPort
+};
+
+
+function toCamelCase(str: string) {
+  return str.replace(/^[A-Z]/, (m) => m.toLowerCase())
+            .replace(/([A-Z])/g, (m) => '_' + m.toLowerCase());
+}
+
+function keysToCamelCase<T>(obj: any): T {
+  if (Array.isArray(obj)) {
+    return obj.map(keysToCamelCase) as any;
+  }
+  if (obj !== null && typeof obj === 'object') {
+    return Object.fromEntries(
+      Object.entries(obj).map(([k, v]) => [
+        k.charAt(0).toLowerCase() + k.slice(1),
+        keysToCamelCase(v)
+      ])
+    ) as T;
+  }
+  return obj;
+}

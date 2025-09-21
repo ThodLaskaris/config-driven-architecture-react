@@ -16,7 +16,7 @@ export function useApi<T>(
     setLoading(true);
     setError(null);
 
-    apiRequest<T>(endpoint, method, data, token)
+    apiRequest<T>({ path: endpoint, method, data, token })
       .then(setResult)
       .catch(error => setError(error.message))
       .finally(() => setLoading(false));

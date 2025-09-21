@@ -1,57 +1,19 @@
+import { Device } from '../types/Device';
+import { apiOptions } from './apiHelpers';
 import * as api from './apiService'
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
-export function addDevice(data: any, token?: string) {
-    return api.create<any>('devices', data, token);
+export function createDevice(device: Device, options: Omit<apiOptions, 'path' | 'method'> = {}) {
+    return api.create<Device>('device', device, options);
 }
-export function updateDevice(identifier: string, deviceData: any, token?: string) {
-    return api.update<any>('devices', identifier, deviceData, token);
+export function updateDevice(identifier: string, data: Partial<Device>, options: Omit<apiOptions, 'path' | 'method'> ={}){
+    return api.update<Device>('device', identifier, data, options);
 }
-export function getDevice(identifier: string, token?: string) {
-    return api.getById<any>('devices', identifier, token);
+export function getDevice(identifier: string, options: Omit<apiOptions, 'path' | 'method'> = {}) {
+    return api.getById<Device>('device', identifier, options);
 }
-export function getDevices(token?: string) {
-    return api.getAll<any>('devices', token);
+export function getDevices(options: Omit<apiOptions, 'path' | 'method'> = {}) {
+    return api.getAll<Device>('device', options);
 }
-export function deleteDevice(identifier: string, token?: string) {
-    return api.deleteById('devices', identifier, token);
+export function deleteDevice(identifier: string, options: Omit<apiOptions, 'path' | 'method'> = {}) {
+    return api.deleteById('device', identifier, options);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-// export function addDevice(data: any, token?: string) {
-//     return apiRequest(`/Devices/`, 'POST', data, token);
-// }
-// export function updateDevice(identifier: string, deviceData: any, token?: string) {
-//     return apiRequest(`/Devices/${identifier}`, 'PUT', deviceData, token);
-// }
-// export function getDevice(identifier: string, token?: string) {
-//     return apiRequest(`/Devices/${identifier}`, 'GET', undefined, token);
-// }
-// export function getDevices(token?: string) {
-//     return apiRequest(`/Devices`, 'GET', undefined, token);
-// }
-// export function deleteDevice(identifier: string, token?: string) {
-//     return apiRequest(`/Devices/${identifier}`, 'DELETE', undefined, token);
-// }
-// export function deleteAllDevices(token?: string) {
-//     return apiRequest('/Devices', 'DELETE', undefined, token);
-// }
-// export function getAllDevices(token?: string) {
-//     return apiRequest('/Devices', 'GET', undefined, token);
-// }
-// export function correlateDevices(identifier: string, correlationData: any, token?: string) {
-//     return apiRequest(`/Devices/${identifier}/Correlate`, 'POST', correlationData, token);
-// }
-// export function uncorrelateDevices(identifier: string, correlationData: any, token?: string) {
-//     return apiRequest(`/Devices/${identifier}/Uncorrelate`, 'DELETE', correlationData, token);
-// }

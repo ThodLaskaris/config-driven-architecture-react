@@ -1,15 +1,16 @@
+import { Manufacturer } from '../types/Manufacturer';
+import { apiOptions } from './apiHelpers';
 import * as api from './apiService'
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
-export function addManufacturer(data: any, token?: string) {
-    return api.create<any>('manufacturers', data, token);
+export function getManufacturers(options: Omit<apiOptions, 'path' | 'method'> = {}) {
+    return api.getAll<Manufacturer>('manufacturer', options)
 }
-export function getAllManufacturers(token?: string) {
-    return api.getAll('manufacturers', token);
+export function getManufacturerById(identifier: string, options: Omit<apiOptions, 'path' | 'method'> = {}) {
+    return api.getById<Manufacturer>('manufacturer', identifier, options);
 }
-export function getManufacturerById(identifier: string | number, token?: string) {
-    return api.getById('manufacturers', identifier, token);
+export function createManufacturer(manufacturer: Manufacturer, options: Omit<apiOptions, 'path' | 'method'> = {}) {
+    return api.create<Manufacturer>('manufacturer', manufacturer, options)
 }
-export function deleteManufacturer(identifier: string | number, token?: string) {
-    return api.deleteById('manufacturers', identifier, token);
+export function deleteManufacturer(identifier: string, options: Omit<apiOptions, 'path' | 'method'> = {}) {
+    return api.deleteById('manufacturer', identifier, options);
 }

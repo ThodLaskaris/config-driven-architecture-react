@@ -1,10 +1,23 @@
 import * as api from './apiService'
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+import { apiOptions } from './apiHelpers';
+import { Message } from '../types/Message';
 
 
-const function getMessages(token?: string) {
-    return api.getAll<any>('messages', token);
+export function getMessages(options: Omit<apiOptions, 'path' | 'method'> = {}) {
+    return api.getAll<Message>('messages', options);
 }
-const function getMessage(identifier: string, token?: string) {
-    return api.getById<any>('messages', identifier, token);
+export function getDeviceMessages(identifier: string, options: Omit<apiOptions, 'path' | 'method'> = {}) {
+    return api.getAll<Message>(`devices/${identifier}/messages`, options);
+}
+export function getMessage(identifier: string, options: Omit<apiOptions, 'path' | 'method'> = {}) {
+    return api.getById<Message>('messages', identifier, options);
+}
+export function getLastMessage(identifier: string, options: Omit<apiOptions, 'path' | 'method'> = {}) {
+    return api.getById<Message>('messages/last', identifier, options);
+}
+export function getFirstMessage(identifier: string, options: Omit<apiOptions, 'path' | 'method'> = {}) {
+    return api.getById<Message>('messages/first', identifier, options);
+}
+export function receiveMessage(message: Message, options: Omit<apiOptions, 'path' | 'method'> = {}) {
+    return api.create<Message>('messages', message, options);
 }

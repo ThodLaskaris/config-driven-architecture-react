@@ -1,10 +1,32 @@
 .small-ion-btn {
   --padding-start: 2px;
   --padding-end: 2px;
-  --padding-top: 0px;
-  --padding-bottom: 0px;
-  font-size: 0.7rem;      /* πιο μικρό αλλά ευανάγνωστο */
-  --height: 20px;
+  --padding-top: 2px;
+  --padding-bottom: 2px;
+  font-size: 0.75rem;
+  --height: 22px;
   --border-radius: 3px;
-  min-width: 0;           /* πολύ σημαντικό! */
-}   
+  min-width: 40px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  background: transparent;
+  color: var(--ion-text-color, #fff);
+  border: none; /* Χωρίς περίγραμμα */
+  transition: background 0.2s, color 0.2s;
+  box-shadow: none;
+}
+
+.small-ion-btn:hover,
+.small-ion-btn:focus {
+  background: var(--ion-color-step-100, #2a2a2a);
+  color: var(--ion-color-primary, #3880ff);
+  cursor: pointer;
+}
+.btn-add {
+  background: #330a4f !important;
+  color: #fff !important;
+}
+.btn-export {
+  background: #5c3a3a !important;
+  color: #fff !important;
+}
