@@ -5,6 +5,7 @@ import { useApi } from '../hooks/useApi';
 import { getTableConfig } from '../config/Table/TableHelper';
 import Tables from '../components/Tables';
 import './Page.css';
+import { deleteById, update } from '../services/apiService';
 
 const Page: React.FC = () => {
   const { name } = useParams<{ name: string }>();
@@ -39,8 +40,9 @@ const Page: React.FC = () => {
           {...config}
           rows={rows || []}
           resource={config.resource}
-          onDelete={refetch} 
+          onDelete={(row) => deleteById(config.resource, row.id, row)} 
           refetch={refetch}
+          onUpdate={(row) => update(config.resource, row.id, row)}
         />
       </IonContent>
     </IonPage>

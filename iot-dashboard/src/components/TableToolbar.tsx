@@ -9,10 +9,10 @@ interface TableToolbarProps {
 
 const TableToolbar: React.FC<TableToolbarProps> = ({ onAdd, onExport }) => (
   <div style={{ display: "flex", gap: 8, marginBottom: 0 }}>
-    <ReusableIonButton color="default" className="small-ion-btn" onClick={onAdd}>
+    <ReusableIonButton color="default" className="small-ion-btn" data-id='toolbar-add-button' onClick={onAdd}>
       <Typography variant="caption"> Add</Typography>
     </ReusableIonButton>
-    <ReusableIonButton color="default" className="small-ion-btn" onClick={onExport}>
+    <ReusableIonButton color="default" className="small-ion-btn" data-id='toolbar-export-button' onClick={onExport}>
       <Typography variant="caption"> Export</Typography>
     </ReusableIonButton>
   </div>

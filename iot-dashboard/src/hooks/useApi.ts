@@ -3,7 +3,7 @@ import { apiRequest } from '../services/apiHelpers';
 
 export function useApi<T>(
   endpoint: string,
-  method: 'GET' | 'POST' | 'PUT' | 'DELETE' = 'GET',
+  method: 'GET' | 'POST' | 'PATCH' | 'DELETE' = 'GET',
   data?: any,
   token?: string,
   dependencies: any[] = [],

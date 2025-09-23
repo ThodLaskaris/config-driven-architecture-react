@@ -10,6 +10,7 @@ export interface Table {
 
 export interface TableProps extends Table {
   rows: any[];
-  onDelete?: () => void;
+  onDelete?: (row: any) => Promise<any>;
   refetch?: () => void;
+  onUpdate?: (row: any) => Promise<any>;
 }

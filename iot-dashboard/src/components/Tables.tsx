@@ -18,10 +18,11 @@ import ReusableIonButton from './IonButton';
 const Tables: React.FC<TableProps> = ({ columnsDef, rows, pageSizeOptions, resource, onDelete, refetch }) => {
   const { open, editRow, handleEdit, handleClose } = useModal<any>();
 
-  const columns = getTableColumns(
-    (row) => handleEdit(row),
-    (row) => handleDelete(resource, row, () => onDelete?.()), columnsDef
-  )
+const columns = getTableColumns(
+  (row) => handleEdit(row),
+  (row) => onDelete?.(row),
+  columnsDef // <-- πρόσθεσε το columnsDef!
+);
 
   const { handleSave, save, error } = useSaveModal<any>(
     (row) => updateDevice(row.id, row),
@@ -31,11 +32,13 @@ const Tables: React.FC<TableProps> = ({ columnsDef, rows, pageSizeOptions, resou
       handleClose();
     }
   )
+
   return (
     <div style={{ width: "100%", margin: 0, padding: 0 }}>
       <TableToolbar
         onAdd={() => alert("adding")}
         onExport={() => alert("exporting")}
+        data-id='table-toolbar'
       />
       <div style={{ width: "100%", margin: 0, padding: 0 }}>
         <Paper sx={paperDarkSx}>
@@ -53,14 +56,17 @@ const Tables: React.FC<TableProps> = ({ columnsDef, rows, pageSizeOptions, resou
             }}
             checkboxSelection
             sx={dataGridDarkSx}
+            data-id='data-grid'
           />
         </Paper>
       </div>
       <AppModal open={open}
-        onClose={handleClose}>
+        onClose={handleClose}
+        data-id='table-edit-modal'>
         <Typography variant="h6">Edit Row</Typography>
         <pre style={{ color: "#fff" }}>{JSON.stringify(editRow, null, 2)}</pre>
         <ReusableIonButton
+          data-id='table-save-button'
           onClick={() => handleSave(editRow)}>Save</ReusableIonButton>
         {/* ftiajke koumpi gia json epilogi  */}
       </AppModal>

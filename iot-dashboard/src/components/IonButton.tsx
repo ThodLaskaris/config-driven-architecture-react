@@ -17,6 +17,7 @@ const ReusableIonButton: React.FC<ReusableIonButtonProps> = ({
       expand={expand}
       disabled={disabled}
       className={className}
+      data-id='ion-button'
     >
       {children}
     </IonButton>
