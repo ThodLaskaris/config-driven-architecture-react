@@ -1,5 +1,5 @@
 import { Manufacturer } from '../types/Manufacturer';
-import { apiOptions } from './apiHelpers';
+import { apiOptions } from "../types/ApiOptions";
 import * as api from './apiService'
 
 export function getManufacturers(options: Omit<apiOptions, 'path' | 'method'> = {}) {

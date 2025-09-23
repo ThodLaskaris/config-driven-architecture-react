@@ -1,11 +1,8 @@
 import React from "react";
 import ReusableIonButton from "./IonButton";
 import Typography from "@mui/material/Typography";
+import { TableToolbarProps } from "../types/Table"; 
 
-interface TableToolbarProps {
-  onAdd: () => void;
-  onExport: () => void;
-}
 
 const TableToolbar: React.FC<TableToolbarProps> = ({ onAdd, onExport }) => (
   <div style={{ display: "flex", gap: 8, marginBottom: 0 }}>

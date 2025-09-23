@@ -1,5 +1,5 @@
 import { Device } from '../types/Device';
-import { apiOptions } from './apiHelpers';
+import { apiOptions } from "../types/ApiOptions";
 import * as api from './apiService'
 
 export function createDevice(device: Device, options: Omit<apiOptions, 'path' | 'method'> = {}) {

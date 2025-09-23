@@ -14,3 +14,14 @@ export interface TableProps extends Table {
   refetch?: () => void;
   onUpdate?: (row: any) => Promise<any>;
 }
+export interface ServerPaginationProps extends TableProps {
+  page: number;
+  pageSize: number;
+  rowCount: number;
+  onPageChange: (page: number) => void;
+  onPageSizeChange: (size: number) => void;
+}
+export interface TableToolbarProps {
+  onAdd: () => void;
+  onExport: () => void;
+}

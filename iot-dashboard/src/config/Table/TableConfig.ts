@@ -1,17 +1,23 @@
 import { Table } from "../../types/Table"
-import { commandsColumnTitles, manufacturersColumnTitles, lastSeenColumnTitles, devicesTableConfig, commandsOutcomeColumnTitles } from './TableColumns';
+import { commandsColumnTitles, manufacturersColumnTitles, lastSeenColumnTitles, commandsOutcomeColumnTitles, deviceColumnTitles } from './TableColumns';
 import { makeTableConfig } from "./TableHelper"
 
 export const commandsTableConfig = makeTableConfig(
   'Commands',
   commandsColumnTitles,
-  '/command',
+  '/commands',
   'command'
+)
+export const devicesTableConfig = makeTableConfig(
+  'Devices',
+  deviceColumnTitles,
+  '/devices',
+  'device'
 )
 export const manufacturersTableConfig = makeTableConfig(
   'Manufacturers',
   manufacturersColumnTitles,
-  '/manufacturer',
+  '/manufacturers',
   'manufacturer'
 )
 export const lastSeenTableConfig = makeTableConfig(

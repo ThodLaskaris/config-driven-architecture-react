@@ -28,9 +28,3 @@ export const lastSeenColumnTitles = makeColumnTitles<LastSeen>([
   'deviceId','onlineAt','gatewayId','signalStrength','createdAt'
 ]);
 
-export const devicesTableConfig = makeTableConfig(
-  'Devices',
-  deviceColumnTitles,
-  '/device',
-  'device'
-);

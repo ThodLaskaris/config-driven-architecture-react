@@ -1,5 +1,5 @@
 import { Command } from '../types/Command';
-import { apiOptions } from './apiHelpers';
+import { apiOptions } from "../types/ApiOptions";
 import * as api from './apiService'
 
 export function getCommands(options: Omit<apiOptions, 'path' | 'method'> = {}) {

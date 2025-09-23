@@ -6,11 +6,11 @@ export const appPages: AppPage[] = [
     children: [
       {
         title: 'Commands',//Send Command Button modal
-        url: '/tables/Commands',
+        url: 'Commands',
       },
       {
         title: 'Commands Outcome',
-        url: '/tables/CommandsOutcome',
+        url: 'CommandsOutcome',
       }
     ]
   },
@@ -19,23 +19,23 @@ export const appPages: AppPage[] = [
     children: [
       {
         title: 'All Devices',
-        url: '/tables/GetAllDevices'
+        url: 'tables/Devices'
       },
       {
         title: 'Device Types',
-        url: '/Device/Types'
+        url: 'tables/Device/Types'
       },
       {
         title: 'Device Correlations',
-        url: '/tables/Correlations'
+        url: 'tables/Correlations'
       },
       {
         title: 'Last Seen Devices',
-        url: '/tables/LastSeen'
+        url: 'tables/LastSeen'
       },
       {
         title: 'New Device',
-        url: '/tables/CreateDevice'
+        url: 'tables/CreateDevice'
       },
     ]
   },
@@ -44,7 +44,7 @@ export const appPages: AppPage[] = [
     children: [
       {
         title: 'All Messages',
-        url: '/tables/GetAllMessages'
+        url: '/tables/Messages'
       }
     ]
   },

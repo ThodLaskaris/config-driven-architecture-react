@@ -1,9 +1,7 @@
 import React from 'react';
 import { DataGrid } from "@mui/x-data-grid";
-import { initialPageSize } from "../config/Table/TableHelper";
-import { TableProps } from '../types/Table';
+import { ServerPaginationProps } from '../types/Table';
 import { paperDarkSx, dataGridDarkSx } from "../config/Table/TablesStyle";
-import { handleDelete } from "../config/Table/TableActions";
 import { getTableColumns } from "../config/Table/getTableColumns";
 import { useModal } from "../hooks/useEditModal";
 import { useSaveModal } from "../hooks/useSaveModal";
@@ -14,24 +12,24 @@ import Typography from "@mui/material/Typography";
 import AppModal from './Modal';
 import ReusableIonButton from './IonButton';
 
-
-const Tables: React.FC<TableProps> = ({ columnsDef, rows, pageSizeOptions, resource, onDelete, refetch }) => {
+const Tables: React.FC<ServerPaginationProps> = ({
+columnsDef,rows,pageSizeOptions,onDelete,refetch,page,pageSize,rowCount,onPageChange,onPageSizeChange
+}) => {
   const { open, editRow, handleEdit, handleClose } = useModal<any>();
 
-const columns = getTableColumns(
-  (row) => handleEdit(row),
-  (row) => onDelete?.(row),
-  columnsDef // <-- πρόσθεσε το columnsDef!
-);
+  const columns = getTableColumns(
+    (row) => handleEdit(row),
+    (row) => onDelete?.(row),
+    columnsDef
+  );
 
-  const { handleSave, save, error } = useSaveModal<any>(
+  const { handleSave } = useSaveModal<any>(
     (row) => updateDevice(row.id, row),
-
     () => {
       refetch?.();
       handleClose();
     }
-  )
+  );
 
   return (
     <div style={{ width: "100%", margin: 0, padding: 0 }}>
@@ -46,13 +44,13 @@ const columns = getTableColumns(
             rows={rows}
             columns={columns}
             pageSizeOptions={pageSizeOptions}
-            initialState={{
-              pagination: {
-                paginationModel: {
-                  pageSize: initialPageSize,
-                  page: 0,
-                },
-              },
+            pagination
+            paginationMode="server"
+            paginationModel={{ page, pageSize }}
+            rowCount={rowCount}
+            onPaginationModelChange={({ page, pageSize }) => {
+              if (page !== undefined) onPageChange(page);
+              if (pageSize !== undefined) onPageSizeChange(pageSize);
             }}
             checkboxSelection
             sx={dataGridDarkSx}
@@ -68,13 +66,9 @@ const columns = getTableColumns(
         <ReusableIonButton
           data-id='table-save-button'
           onClick={() => handleSave(editRow)}>Save</ReusableIonButton>
-        {/* ftiajke koumpi gia json epilogi  */}
       </AppModal>
     </div>
   );
 };
 
 export default Tables;
-
-
-

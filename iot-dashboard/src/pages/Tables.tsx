@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonText, IonToolbar } from '@ionic/react';
 import { useParams } from 'react-router';
 import { useApi } from '../hooks/useApi';
-import { getTableConfig } from '../config/Table/TableHelper';
+import { getTableConfig, paginationVars } from '../config/Table/TableHelper';
 import Tables from '../components/Tables';
 import './Page.css';
 import { deleteById, update } from '../services/apiService';
@@ -11,8 +11,16 @@ const Page: React.FC = () => {
   const { name } = useParams<{ name: string }>();
   const config = getTableConfig(name ?? '');
   const endpoint = config.endpoint;
-  const { result: rows, loading, error, refetch } = useApi<any[]>(endpoint, 'GET', undefined, undefined, [endpoint]);
+  const [page, setPage] = useState(0);
+  const [pageSize, setPageSize] = useState(paginationVars[0]);
 
+  const { result, loading, error, refetch } = useApi<any>(
+    endpoint, {
+    method: 'GET',
+    params: { page, pageSize },
+    dependencies: [endpoint, page, pageSize]
+  }
+  )
   return (
     <IonPage>
       <IonHeader>
@@ -38,9 +46,15 @@ const Page: React.FC = () => {
         {error && <div style={{ color: 'red' }}>{`BR-${error}`}</div>}
         <Tables
           {...config}
-          rows={rows || []}
+          rows={result?.data || []}
           resource={config.resource}
-          onDelete={(row) => deleteById(config.resource, row.id, row)} 
+          page={page}
+          pageSize={pageSize}
+          rowCount={result?.total || 0}
+          pageSizeOptions={paginationVars}
+          onPageChange={setPage}
+          onPageSizeChange={(size) => { setPageSize(size); setPage(0); }}
+          onDelete={(row) => deleteById(config.resource, row.id, row)}
           refetch={refetch}
           onUpdate={(row) => update(config.resource, row.id, row)}
         />

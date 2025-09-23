@@ -1,13 +1,21 @@
 import { useCallback, useEffect, useState } from 'react';
 import { apiRequest } from '../services/apiHelpers';
+import {  UseApiOptions } from "../types/ApiOptions";
+
+
 
 export function useApi<T>(
   endpoint: string,
-  method: 'GET' | 'POST' | 'PATCH' | 'DELETE' = 'GET',
-  data?: any,
-  token?: string,
-  dependencies: any[] = [],
+  options: UseApiOptions = {}
 ) {
+  const {
+    method = 'GET',
+    data,
+    token,
+    params,
+    dependencies = [endpoint, method, data, token, params]
+  } = options;
+
   const [result, setResult] = useState<T | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -16,16 +24,15 @@ export function useApi<T>(
     setLoading(true);
     setError(null);
 
-    apiRequest<T>({ path: endpoint, method, data, token })
+    apiRequest<T>({ path: endpoint, method, data, token, params })
       .then(setResult)
       .catch(error => setError(error.message))
       .finally(() => setLoading(false));
-
-  }, [endpoint, method, data, token]);
+  }, [endpoint, method, data, token, params]);
 
   useEffect(() => {
     fetchData();
-  }, dependencies.length ? dependencies : [fetchData]);
+  }, [...dependencies, fetchData]);
 
   return { result, loading, error, refetch: fetchData };
 }

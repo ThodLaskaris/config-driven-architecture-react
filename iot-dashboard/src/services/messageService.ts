@@ -1,5 +1,5 @@
 import * as api from './apiService'
-import { apiOptions } from './apiHelpers';
+import { apiOptions } from "../types/ApiOptions";
 import { Message } from '../types/Message';
 
 
