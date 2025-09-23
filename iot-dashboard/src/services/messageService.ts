@@ -7,7 +7,7 @@ export function getMessages(options: Omit<apiOptions, 'path' | 'method'> = {}) {
     return api.getAll<Message>('messages', options);
 }
 export function getDeviceMessages(identifier: string, options: Omit<apiOptions, 'path' | 'method'> = {}) {
-    return api.getAll<Message>(`devices/${identifier}/messages`, options);
+    return api.getAll<Message>(`messages/${identifier}/messages`, options);
 }
 export function getMessage(identifier: string, options: Omit<apiOptions, 'path' | 'method'> = {}) {
     return api.getById<Message>('messages', identifier, options);
