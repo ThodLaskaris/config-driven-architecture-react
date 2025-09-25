@@ -5,55 +5,92 @@ export const appPages: AppPage[] = [
     title: 'Commands',
     children: [
       {
-        title: 'Commands',//Send Command Button modal
-        url: 'Commands',
+        title: 'Commands',
+        url: '/tables/Commands',
       },
       {
-        title: 'Commands Outcome',
-        url: 'CommandsOutcome',
-      }
+        title: 'Outcome',
+        url: '/tables/CommandOutcome',
+      },
     ]
   },
   {
     title: 'Devices',
     children: [
       {
-        title: 'All Devices',
-        url: 'tables/Devices'
+        title: 'Devices',
+        url: '/tables/Devices',
       },
       {
-        title: 'Device Types',
-        url: 'tables/Device/Types'
-      },
-      {
-        title: 'Device Correlations',
-        url: 'tables/Correlations'
-      },
-      {
-        title: 'Last Seen Devices',
-        url: 'tables/LastSeen'
-      },
-      {
-        title: 'New Device',
-        url: 'tables/CreateDevice'
-      },
+        title: 'Correlated Devices',
+        url: '/tables/Correlations',
+      }
     ]
   },
   {
     title: 'Messages',
     children: [
       {
-        title: 'All Messages',
-        url: '/tables/Messages'
+        title: 'Messages',
+        url: '/tables/Messages',
       }
     ]
-  },
-  {
-    title: 'Manufacturers',
-    url: '/tables/Manufacturers'
-  },
-  {
-    title: 'Statistics',
-    url: '/Statistics'
   }
 ];
+// export const appPages: AppPage[] = [
+//   {
+//     title: 'Commands',
+//     children: [
+//       {
+//         title: 'Commands',//Send Command Button modal
+//         url: 'Commands',
+//       },
+//       {
+//         title: 'Commands Outcome',
+//         url: 'Commands/outcome',
+//       }
+//     ]
+//   },
+//   {
+//     title: 'Devices',
+//     children: [
+//       {
+//         title: 'All Devices',
+//         url: 'tables/Devices'
+//       },
+//       {
+//         title: 'Device Types',
+//         url: 'tables/Device/Types'
+//       },
+//       {
+//         title: 'Device Correlations',
+//         url: 'tables/Correlations'
+//       },
+//       {
+//         title: 'Last Seen Devices',
+//         url: 'tables/LastSeen'
+//       },
+//       {
+//         title: 'New Device',
+//         url: 'tables/CreateDevice'
+//       },
+//     ]
+//   },
+//   {
+//     title: 'Messages',
+//     children: [
+//       {
+//         title: 'All Messages',
+//         url: '/tables/Messages'
+//       }
+//     ]
+//   },
+//   {
+//     title: 'Manufacturers',
+//     url: '/tables/Manufacturers'
+//   },
+//   {
+//     title: 'Statistics',
+//     url: '/Statistics'
+//   }
+// ];

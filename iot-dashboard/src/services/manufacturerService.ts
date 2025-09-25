@@ -1,4 +1,4 @@
-import { Manufacturer } from '../types/Manufacturer';
+import { Manufacturer } from '../types/manufacturer';
 import { apiOptions } from "../types/ApiOptions";
 import * as api from './apiService'
 

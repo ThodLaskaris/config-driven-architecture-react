@@ -1,19 +1,19 @@
-import { Device } from '../types/Device';
+import { Device } from '../types/device';
 import { apiOptions } from "../types/ApiOptions";
 import * as api from './apiService'
 
 export function createDevice(device: Device, options: Omit<apiOptions, 'path' | 'method'> = {}) {
-    return api.create<Device>('device', device, options);
+    return api.create<Device>('Device', device, options);
 }
 export function updateDevice(identifier: string, data: Partial<Device>, options: Omit<apiOptions, 'path' | 'method'> ={}){
-    return api.update<Device>('device', identifier, data, options);
+    return api.update<Device>('Device', identifier, data, options);
 }
 export function getDevice(identifier: string, options: Omit<apiOptions, 'path' | 'method'> = {}) {
-    return api.getById<Device>('device', identifier, options);
+    return api.getById<Device>('Device', identifier, options);
 }
 export function getDevices(options: Omit<apiOptions, 'path' | 'method'> = {}) {
-    return api.getAll<Device>('device', options);
+    return api.getAll<Device>('Device', options);
 }
 export function deleteDevice(identifier: string, options: Omit<apiOptions, 'path' | 'method'> = {}) {
-    return api.deleteById('device', identifier, options);
+    return api.deleteById('Device', identifier, options);
 }

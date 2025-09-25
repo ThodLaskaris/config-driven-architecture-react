@@ -1,11 +1,10 @@
-import { GridColDef } from "@mui/x-data-grid";
-
 export interface Table {
   resource: any;
   title: string;
-  columnsDef: GridColDef[];
+  columnsDef: Array<{ field: string; headerName: string; editable?: boolean }>;
   pageSizeOptions?: number[];
   endpoint: string;
+  data?: any;
 }
 
 export interface TableProps extends Table {
@@ -20,6 +19,7 @@ export interface ServerPaginationProps extends TableProps {
   rowCount: number;
   onPageChange: (page: number) => void;
   onPageSizeChange: (size: number) => void;
+  data?: any;
 }
 export interface TableToolbarProps {
   onAdd: () => void;

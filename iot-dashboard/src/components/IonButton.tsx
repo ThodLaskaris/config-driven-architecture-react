@@ -9,6 +9,7 @@ const ReusableIonButton: React.FC<ReusableIonButtonProps> = ({
   disabled = false,
   className,
   children,
+  type,
 }) => {
   return (
     <IonButton
@@ -17,6 +18,7 @@ const ReusableIonButton: React.FC<ReusableIonButtonProps> = ({
       expand={expand}
       disabled={disabled}
       className={className}
+      type={type}
       data-id='ion-button'
     >
       {children}

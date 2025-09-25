@@ -1,21 +1,19 @@
 import React from 'react';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
+import { ModalProps } from '../types/Modal';
 
-interface ModalProps {
-    open: boolean;
-    onClose: () => void;
-    children: React.ReactNode;
-}
 const style = {
   position: "absolute" as const,
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  minWidth: 320,
+  minWidth: 200,
+  maxHeight: "80vh",
+  overflowY: 'auto',
   bgcolor: "#222",
   color: "#fff",
-  borderRadius: 8,
+  borderRadius: 2,
   boxShadow: 24,
   p: 4,
 };

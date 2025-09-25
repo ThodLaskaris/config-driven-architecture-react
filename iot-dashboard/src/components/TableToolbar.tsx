@@ -1,7 +1,7 @@
 import React from "react";
 import ReusableIonButton from "./IonButton";
 import Typography from "@mui/material/Typography";
-import { TableToolbarProps } from "../types/Table"; 
+import { TableToolbarProps } from "../types/table"; 
 
 
 const TableToolbar: React.FC<TableToolbarProps> = ({ onAdd, onExport }) => (

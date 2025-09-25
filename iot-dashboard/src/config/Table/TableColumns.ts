@@ -1,7 +1,7 @@
 import { makeColumnTitles, makeTableConfig } from './TableHelper'
-import { Command, CommandOutcome } from '../../types/Command';
-import { Device } from '../../types/Device';
-import { Manufacturer } from '../../types/Manufacturer';
+import { Command, CommandOutcome } from '../../types/command';
+import { Device } from '../../types/device';
+import { Manufacturer } from '../../types/manufacturer';
 import { LastSeen } from '../../types/LastSeen'; 
 
 
@@ -11,9 +11,9 @@ export const commandsColumnTitles = makeColumnTitles<Command>([
 
 
 export const deviceColumnTitles = makeColumnTitles<Device>([
-  'id','name','euid','lat','lng','manufacturer', 'manufacturerId', 'manufacturerName', 'typeName','type','address',
-  'client','serialNumber','createdAt','activatedAt','wattage','averageConsumption','notes','lastOnline','customParam1',
-  'customParam2','customParam3','customParam4','customParam5'
+  'id','name','euid','lat','lng', 'manufacturerId', 'type','address',
+  'serialNumber','createdAt','wattage','activatedAt','notes','customParam1',
+  'customParam2','customParam3','customParam4','customParam5', 'createdAt','client'
 ]);
 
 export const commandsOutcomeColumnTitles = makeColumnTitles<CommandOutcome>([
@@ -27,4 +27,3 @@ export const manufacturersColumnTitles = makeColumnTitles<Manufacturer>([
 export const lastSeenColumnTitles = makeColumnTitles<LastSeen>([
   'deviceId','onlineAt','gatewayId','signalStrength','createdAt'
 ]);
-

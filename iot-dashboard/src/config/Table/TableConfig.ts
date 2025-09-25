@@ -1,4 +1,4 @@
-import { Table } from "../../types/Table"
+import { Table } from "../../types/table"
 import { commandsColumnTitles, manufacturersColumnTitles, lastSeenColumnTitles, commandsOutcomeColumnTitles, deviceColumnTitles } from './TableColumns';
 import { makeTableConfig } from "./TableHelper"
 
@@ -11,7 +11,7 @@ export const commandsTableConfig = makeTableConfig(
 export const devicesTableConfig = makeTableConfig(
   'Devices',
   deviceColumnTitles,
-  '/devices',
+  '/Devices',
   'device'
 )
 export const manufacturersTableConfig = makeTableConfig(
@@ -29,7 +29,7 @@ export const lastSeenTableConfig = makeTableConfig(
 export const commandsOutcomeTableConfig = makeTableConfig(
     'Command Outcomes',
     commandsOutcomeColumnTitles,
-    '/command-outcome',
+    'commands/outcome',
     'commandOutcome'
 )
 export const tableConfigs: Record<string, Table> = {

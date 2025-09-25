@@ -11,13 +11,12 @@ const Page: React.FC = () => {
   const { name } = useParams<{ name: string }>();
   const config = getTableConfig(name ?? '');
   const endpoint = config.endpoint;
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(paginationVars[0]);
 
   const { result, loading, error, refetch } = useApi<any>(
     endpoint, {
     method: 'GET',
-    params: { page, pageSize },
     dependencies: [endpoint, page, pageSize]
   }
   )

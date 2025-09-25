@@ -1,14 +1,29 @@
 import { useState } from "react";
+export type ModalMode = 'add' | 'edit' | null;
 
 export function useModal<T = any>() {
-    const [open, setOpen] = useState(false);
-    const [editRow, setEditRow] = useState<T | null>(null);
+    const [modalMode, setModalMode] = useState<ModalMode>(null);
+    const [rowData, setRowData] = useState<T>({} as T);
 
-    const handleEdit = (row: T) => {
-        setEditRow(row);
-        setOpen(true);
+    const openAdd = () => {
+        setModalMode('add');
+        setRowData({} as T);
     };
-    const handleClose = () => setOpen(false);
-    
-    return { open, editRow, handleEdit, handleClose, setEditRow };
+
+    const openEdit = (row: T) => {
+        setModalMode('edit');
+        setRowData(row);
+    };
+
+    const closeModal = () => {
+        setModalMode(null);
+        setRowData({} as T);
+    };
+
+    return { modalMode, rowData, setRowData, openAdd, openEdit, closeModal };
 }
+
+/*
+ftiakso to modal API epikoininies , οπως και το UI
+
+*/

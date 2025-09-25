@@ -1,4 +1,4 @@
-import { Command } from '../types/Command';
+import { Command } from '../types/command';
 import { apiOptions } from "../types/ApiOptions";
 import * as api from './apiService'
 

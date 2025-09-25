@@ -1,8 +1,8 @@
-import { GridColDef } from '@mui/x-data-grid';
-import { Table } from '../../types/Table';
+import { Table } from '../../types/table';
 import { tableConfigs } from './TableConfig';
-import { createCommand, createDevice, createManufacturer, deleteCommand, deleteDevice, deleteManufacturer, updateDevice } from '../../services';
-
+import { createCommand, deleteCommand } from '../../services/commandService';
+import { createDevice, deleteDevice, updateDevice } from '../../services/deviceService';
+import { createManufacturer, deleteManufacturer } from '../../services/manufacturerService';
 export const paginationVars = [15, 25, 50, 75, 100];
 export const initialPageSize = paginationVars[0] ?? 15;
 
@@ -10,11 +10,11 @@ export function makeColumnTitles<T>(fields: (keyof T)[]): Record<string, string>
   return Object.fromEntries(fields.map(x => [String(x), String(x)]));
 }
 
-export function buildGridColumns(titles: Record<string, string>): GridColDef[] {
+export function buildGridColumns(titles: Record<string, string>): Array<{ field: string; headerName: string; editable?: boolean }>{
   return Object.entries(titles).map(([field, headerName]) => ({
     field,
     headerName,
-    width: field === 'id' ? 300 : 120,
+    editable: !['id', 'createdAt', 'activatedAt', 'updatedAt'].includes(field),
   }));
 }
 
@@ -23,7 +23,7 @@ export function makeTableConfig(
   columns: Record<string, string>,
   endpoint: string,
   resource: string
-): Table {
+): any {
   return {
     title,
     columnsDef: buildGridColumns(columns),
@@ -32,7 +32,6 @@ export function makeTableConfig(
     resource
   };
 }
-
 
 export function getTableConfig(name: string): Table {
   const key = Object.keys(tableConfigs).find(

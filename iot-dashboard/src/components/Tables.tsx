@@ -1,71 +1,93 @@
 import React from 'react';
-import { DataGrid } from "@mui/x-data-grid";
-import { ServerPaginationProps } from '../types/Table';
-import { paperDarkSx, dataGridDarkSx } from "../config/Table/TablesStyle";
+import { DataGrid, GridColDef, GridRowsProp } from '@mui/x-data-grid';
+import { ServerPaginationProps } from '../types/table';
 import { getTableColumns } from "../config/Table/getTableColumns";
 import { useModal } from "../hooks/useEditModal";
-import { useSaveModal } from "../hooks/useSaveModal";
-import { updateDevice } from "../services";
-import Paper from "@mui/material/Paper";
 import TableToolbar from "./TableToolbar";
-import Typography from "@mui/material/Typography";
-import AppModal from './Modal';
 import ReusableIonButton from './IonButton';
+import { create, update } from '../services/apiService';
+import { AddForm } from '../config/Modal/Modal';
+import AppModal from './Modal';
+
 
 const Tables: React.FC<ServerPaginationProps> = ({
-columnsDef,rows,pageSizeOptions,onDelete,refetch,page,pageSize,rowCount,onPageChange,onPageSizeChange
+  columnsDef, rows, pageSizeOptions, onDelete, refetch, page, pageSize, rowCount, onPageChange, onPageSizeChange, resource
 }) => {
-  const { open, editRow, handleEdit, handleClose } = useModal<any>();
+  const { modalMode, rowData, setRowData, openAdd, openEdit, closeModal } = useModal<any>();
+  const columns: GridColDef[] = getTableColumns(openEdit, (row) => onDelete?.(row), columnsDef);
 
-  const columns = getTableColumns(
-    (row) => handleEdit(row),
-    (row) => onDelete?.(row),
-    columnsDef
-  );
-
-  const { handleSave } = useSaveModal<any>(
-    (row) => updateDevice(row.id, row),
-    () => {
+  const handleSave = async (row: any) => {
+    try {
+      const action = modalMode === 'add' ? () => create(resource, row) : () => update(resource, row.id, row);
+      await action();
+      closeModal();
       refetch?.();
-      handleClose();
+    } catch (error: any) {
+      console.error("Error saving row:", error);
     }
-  );
+  };
 
   return (
     <div style={{ width: "100%", margin: 0, padding: 0 }}>
       <TableToolbar
-        onAdd={() => alert("adding")}
+        onAdd={openAdd}
         onExport={() => alert("exporting")}
         data-id='table-toolbar'
       />
       <div style={{ width: "100%", margin: 0, padding: 0 }}>
-        <Paper sx={paperDarkSx}>
+        <div style={{ background: '#000', borderRadius: 8, padding: 8 }}>
           <DataGrid
-            rows={rows}
             columns={columns}
-            pageSizeOptions={pageSizeOptions}
+            rows={rows}
             pagination
+            rowCount={rowCount}
             paginationMode="server"
             paginationModel={{ page, pageSize }}
-            rowCount={rowCount}
             onPaginationModelChange={({ page, pageSize }) => {
-              if (page !== undefined) onPageChange(page);
-              if (pageSize !== undefined) onPageSizeChange(pageSize);
+              onPageChange(page);
+              onPageSizeChange(pageSize);
             }}
-            checkboxSelection
-            sx={dataGridDarkSx}
-            data-id='data-grid'
+            pageSizeOptions={pageSizeOptions}
+            autoHeight
+            sx={{ background: '#000', color: '#fff' }}
           />
-        </Paper>
+        </div>
       </div>
-      <AppModal open={open}
-        onClose={handleClose}
-        data-id='table-edit-modal'>
-        <Typography variant="h6">Edit Row</Typography>
-        <pre style={{ color: "#fff" }}>{JSON.stringify(editRow, null, 2)}</pre>
-        <ReusableIonButton
-          data-id='table-save-button'
-          onClick={() => handleSave(editRow)}>Save</ReusableIonButton>
+      <AppModal open={modalMode !== null} onClose={closeModal}>
+        <div style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginBottom: 16
+        }}>
+          <span style={{ fontWeight: 600, fontSize: 18 }}>
+            {modalMode === 'add' ? `Add ${resource}` : `Edit ${resource}`}
+          </span>
+          <ReusableIonButton
+            type="button"
+            onClick={() => alert(JSON.stringify(rowData, null, 2))}
+            style={{ minWidth: 70, padding: "4px 10px", fontSize: 13, marginLeft: 12 }}
+          >
+            View as JSON
+          </ReusableIonButton>
+        </div>
+        <form
+          onSubmit={e => {
+            e.preventDefault();
+            handleSave(rowData);
+          }}
+          style={{ display: 'flex', flexDirection: 'column', gap: 12, marginTop: 16 }}
+        >
+          <AddForm columns={columnsDef} rowData={rowData} setRowData={setRowData} />
+          <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end', marginTop: 16 }}>
+            <ReusableIonButton type='button' onClick={closeModal}>
+              Cancel
+            </ReusableIonButton>
+            <ReusableIonButton type="submit" data-id='table-save-button'>
+              Save
+            </ReusableIonButton>
+          </div>
+        </form>
       </AppModal>
     </div>
   );
